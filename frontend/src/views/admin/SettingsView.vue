@@ -4630,7 +4630,7 @@
                       v-model="form.payment_product_name_suffix"
                       type="text"
                       class="input"
-                      placeholder="CNY"
+                      placeholder="HKD"
                     />
                   </div>
                   <div>
@@ -4643,7 +4643,7 @@
                       {{
                         (form.payment_product_name_prefix || "Sub2API") +
                         " 100 " +
-                        (form.payment_product_name_suffix || "CNY")
+                        (form.payment_product_name_suffix || "HKD")
                       }}
                     </div>
                   </div>

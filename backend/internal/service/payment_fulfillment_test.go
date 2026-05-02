@@ -275,14 +275,14 @@ func TestValidateProviderNotificationMetadataRejectsWxpaySnapshotMismatch(t *tes
 			"schema_version":  1,
 			"merchant_app_id": "wx-app-expected",
 			"merchant_id":     "mch-expected",
-			"currency":        "CNY",
+			"currency":        "HKD",
 		},
 	}
 
 	err := validateProviderNotificationMetadata(order, payment.TypeWxpay, map[string]string{
 		"appid":       "wx-app-other",
 		"mchid":       "mch-expected",
-		"currency":    "CNY",
+		"currency":    "HKD",
 		"trade_state": "SUCCESS",
 	})
 	assert.ErrorContains(t, err, "wxpay appid mismatch")
@@ -303,7 +303,7 @@ func TestValidateProviderNotificationMetadataAllowsLegacyOrdersWithoutSnapshotFi
 	err := validateProviderNotificationMetadata(order, payment.TypeWxpay, map[string]string{
 		"appid":       "wx-app-runtime",
 		"mchid":       "mch-runtime",
-		"currency":    "CNY",
+		"currency":    "HKD",
 		"trade_state": "SUCCESS",
 	})
 	assert.NoError(t, err)

@@ -28,7 +28,7 @@ import (
 
 // WeChat Pay constants.
 const (
-	wxpayCurrency   = "CNY"
+	wxpayCurrency   = "HKD"
 	wxpayH5Type     = "Wap"
 	wxpayResultPath = "/payment/result"
 )

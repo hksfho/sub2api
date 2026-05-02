@@ -6,19 +6,19 @@ import (
 	"github.com/shopspring/decimal"
 )
 
-const centsPerYuan = 100
+const centsPerUnit = 100
 
-// YuanToFen converts a CNY yuan string (e.g. "10.50") to fen (int64).
+// YuanToFen converts a decimal amount string (e.g. "10.50") to minor units (int64).
 // Uses shopspring/decimal for precision.
-func YuanToFen(yuanStr string) (int64, error) {
-	d, err := decimal.NewFromString(yuanStr)
+func YuanToFen(amountStr string) (int64, error) {
+	d, err := decimal.NewFromString(amountStr)
 	if err != nil {
-		return 0, fmt.Errorf("invalid amount: %s", yuanStr)
+		return 0, fmt.Errorf("invalid amount: %s", amountStr)
 	}
-	return d.Mul(decimal.NewFromInt(centsPerYuan)).IntPart(), nil
+	return d.Mul(decimal.NewFromInt(centsPerUnit)).IntPart(), nil
 }
 
-// FenToYuan converts fen (int64) to yuan as a float64 for interface compatibility.
+// FenToYuan converts minor units (int64) to major units as a float64 for interface compatibility.
 func FenToYuan(fen int64) float64 {
-	return decimal.NewFromInt(fen).Div(decimal.NewFromInt(centsPerYuan)).InexactFloat64()
+	return decimal.NewFromInt(fen).Div(decimal.NewFromInt(centsPerUnit)).InexactFloat64()
 }

@@ -33,7 +33,7 @@ func TestBuildPaymentOrderProviderSnapshot_ExcludesSensitiveConfig(t *testing.T)
 		"provider_key":         payment.TypeWxpay,
 		"payment_mode":         "popup",
 		"merchant_app_id":      "wx-app-id",
-		"currency":             "CNY",
+		"currency":             "HKD",
 	}, snapshot)
 	require.NotContains(t, snapshot, "config")
 	require.NotContains(t, snapshot, "privateKey")
@@ -127,7 +127,7 @@ func TestBuildPaymentOrderProviderSnapshot_UsesWxpayJSAPIAppIDForOpenIDOrders(t 
 
 	require.Equal(t, "wx-mp-app", snapshot["merchant_app_id"])
 	require.Equal(t, "mch-88", snapshot["merchant_id"])
-	require.Equal(t, "CNY", snapshot["currency"])
+	require.Equal(t, "HKD", snapshot["currency"])
 }
 
 func TestBuildPaymentOrderProviderSnapshot_IncludesAlipayMerchantIdentity(t *testing.T) {
