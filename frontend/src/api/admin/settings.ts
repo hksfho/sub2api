@@ -62,12 +62,12 @@ const PAYMENT_VISIBLE_METHOD_SOURCE_OPTIONS: Record<
     { value: "", labelZh: "未配置", labelEn: "Not configured" },
     {
       value: "official_alipay",
-      labelZh: "支付宝官方",
+      labelZh: "支付寶官方",
       labelEn: "Official Alipay",
     },
     {
       value: "easypay_alipay",
-      labelZh: "易支付支付宝",
+      labelZh: "易支付支付寶",
       labelEn: "EasyPay Alipay",
     },
   ],
@@ -108,15 +108,15 @@ const PAYMENT_VISIBLE_METHOD_SOURCE_ALIASES: Record<
   },
 };
 const WECHAT_CONNECT_MODE_OPTIONS: WeChatConnectModeOption[] = [
-  { value: "open", labelZh: "PC 应用", labelEn: "PC App" },
+  { value: "open", labelZh: "PC 應用", labelEn: "PC App" },
   {
     value: "mp",
-    labelZh: "公众号",
+    labelZh: "公眾號",
     labelEn: "Official Account",
   },
   {
     value: "mobile",
-    labelZh: "移动应用",
+    labelZh: "移動應用",
     labelEn: "Mobile App",
   },
 ];

@@ -20,7 +20,7 @@ const (
 )
 
 // ErrDashboardStatsCacheMiss 标记仪表盘缓存未命中。
-var ErrDashboardStatsCacheMiss = errors.New("仪表盘缓存未命中")
+var ErrDashboardStatsCacheMiss = errors.New("儀表盤快取未命中")
 
 // DashboardStatsCache 定义仪表盘统计缓存接口。
 type DashboardStatsCache interface {
@@ -190,7 +190,7 @@ func (s *DashboardService) getCachedDashboardStats(ctx context.Context) (*usages
 		return nil, false, ErrDashboardStatsCacheMiss
 	}
 	if entry.Stats == nil {
-		s.evictDashboardStatsCache(errors.New("仪表盘缓存缺少统计数据"))
+		s.evictDashboardStatsCache(errors.New("儀表盤快取缺少統計資料"))
 		return nil, false, ErrDashboardStatsCacheMiss
 	}
 

@@ -333,8 +333,8 @@ func isEasyPayRefundOrderNotFound(err error) bool {
 	}
 	msg := err.Error()
 	lower := strings.ToLower(msg)
-	return strings.Contains(msg, "订单编号不存在") ||
-		strings.Contains(msg, "订单不存在") ||
+	return strings.Contains(msg, "訂單編號不存在") ||
+		strings.Contains(msg, "訂單不存在") ||
 		strings.Contains(lower, "order not found") ||
 		strings.Contains(lower, "not exist")
 }

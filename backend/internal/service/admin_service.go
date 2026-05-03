@@ -2838,7 +2838,7 @@ func (s *adminServiceImpl) CheckProxyQuality(ctx context.Context, id int64) (*Pr
 		result.Items = append(result.Items, ProxyQualityCheckItem{
 			Target:  "base_connectivity",
 			Status:  "fail",
-			Message: "代理探测服务未配置",
+			Message: "代理探測服務未配置",
 		})
 		result.FailedCount++
 		finalizeProxyQualityResult(result)
@@ -2868,7 +2868,7 @@ func (s *adminServiceImpl) CheckProxyQuality(ctx context.Context, id int64) (*Pr
 		Target:    "base_connectivity",
 		Status:    "pass",
 		LatencyMs: latencyMs,
-		Message:   "代理出口连通正常",
+		Message:   "代理出口連通正常",
 	})
 	result.PassedCount++
 
@@ -2881,7 +2881,7 @@ func (s *adminServiceImpl) CheckProxyQuality(ctx context.Context, id int64) (*Pr
 		result.Items = append(result.Items, ProxyQualityCheckItem{
 			Target:  "http_client",
 			Status:  "fail",
-			Message: fmt.Sprintf("创建检测客户端失败: %v", err),
+			Message: fmt.Sprintf("建立檢測客戶端失敗: %v", err),
 		})
 		result.FailedCount++
 		finalizeProxyQualityResult(result)
@@ -2917,7 +2917,7 @@ func runProxyQualityTarget(ctx context.Context, client *http.Client, target prox
 	req, err := http.NewRequestWithContext(ctx, target.Method, target.URL, nil)
 	if err != nil {
 		item.Status = "fail"
-		item.Message = fmt.Sprintf("构建请求失败: %v", err)
+		item.Message = fmt.Sprintf("構建請求失敗: %v", err)
 		return item
 	}
 	req.Header.Set("Accept", "application/json,text/html,*/*")
@@ -2928,7 +2928,7 @@ func runProxyQualityTarget(ctx context.Context, client *http.Client, target prox
 	if err != nil {
 		item.Status = "fail"
 		item.LatencyMs = time.Since(start).Milliseconds()
-		item.Message = fmt.Sprintf("请求失败: %v", err)
+		item.Message = fmt.Sprintf("請求失敗: %v", err)
 		return item
 	}
 	defer func() { _ = resp.Body.Close() }()
@@ -2938,7 +2938,7 @@ func runProxyQualityTarget(ctx context.Context, client *http.Client, target prox
 	body, readErr := io.ReadAll(io.LimitReader(resp.Body, proxyQualityMaxBodyBytes+1))
 	if readErr != nil {
 		item.Status = "fail"
-		item.Message = fmt.Sprintf("读取响应失败: %v", readErr)
+		item.Message = fmt.Sprintf("讀取響應失敗: %v", readErr)
 		return item
 	}
 	if int64(len(body)) > proxyQualityMaxBodyBytes {
@@ -2959,19 +2959,19 @@ func runProxyQualityTarget(ctx context.Context, client *http.Client, target prox
 			item.Message = fmt.Sprintf("HTTP %d", resp.StatusCode)
 		} else {
 			item.Status = "warn"
-			item.Message = fmt.Sprintf("HTTP %d（目标可达，但鉴权或方法受限）", resp.StatusCode)
+			item.Message = fmt.Sprintf("HTTP %d（目標可達，但鑑權或方法受限）", resp.StatusCode)
 		}
 		return item
 	}
 
 	if resp.StatusCode == http.StatusTooManyRequests {
 		item.Status = "warn"
-		item.Message = "目标返回 429，可能存在频控"
+		item.Message = "目標返回 429，可能存在頻控"
 		return item
 	}
 
 	item.Status = "fail"
-	item.Message = fmt.Sprintf("非预期状态码: %d", resp.StatusCode)
+	item.Message = fmt.Sprintf("非預期狀態碼: %d", resp.StatusCode)
 	return item
 }
 
@@ -2986,7 +2986,7 @@ func finalizeProxyQualityResult(result *ProxyQualityCheckResult) {
 	result.Score = score
 	result.Grade = proxyQualityGrade(score)
 	result.Summary = fmt.Sprintf(
-		"通过 %d 项，告警 %d 项，失败 %d 项，挑战 %d 项",
+		"透過 %d 項，告警 %d 項，失敗 %d 項，挑戰 %d 項",
 		result.PassedCount,
 		result.WarnCount,
 		result.FailedCount,

@@ -1430,7 +1430,7 @@ func (r *usageLogRepository) GetDashboardStatsWithRange(ctx context.Context, sta
 	startUTC := start.UTC()
 	endUTC := end.UTC()
 	if !endUTC.After(startUTC) {
-		return nil, errors.New("统计时间范围无效")
+		return nil, errors.New("統計時間範圍無效")
 	}
 
 	stats := &DashboardStats{}

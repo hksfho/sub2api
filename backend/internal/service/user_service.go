@@ -1174,7 +1174,7 @@ func (s *UserService) sendNotifyVerifyEmail(ctx context.Context, emailService *E
 			siteName = name
 		}
 	}
-	subject := fmt.Sprintf("[%s] 通知邮箱验证码 / Notification Email Verification", siteName)
+	subject := fmt.Sprintf("[%s] 通知郵箱驗證碼 / Notification Email Verification", siteName)
 	body := buildNotifyVerifyEmailBody(code, siteName)
 	return emailService.SendEmail(ctx, email, subject, body)
 }
@@ -1311,19 +1311,19 @@ const notifyVerifyEmailTemplate = `<!DOCTYPE html>
             <h1>%s</h1>
         </div>
         <div class="content">
-            <p style="font-size: 18px; color: #333;">通知邮箱验证码 / Notification Email Verification</p>
+            <p style="font-size: 18px; color: #333;">通知郵箱驗證碼 / Notification Email Verification</p>
             <div class="code">%s</div>
             <div class="info">
-                <p>您正在添加额外的通知邮箱，请输入此验证码完成验证。</p>
+                <p>您正在新增額外的通知郵箱，請輸入此驗證碼完成驗證。</p>
                 <p>You are adding an extra notification email. Please enter this code to verify.</p>
-                <p>此验证码将在 <strong>15 分钟</strong>后失效。</p>
+                <p>此驗證碼將在 <strong>15 分鐘</strong>後失效。</p>
                 <p>This code will expire in <strong>15 minutes</strong>.</p>
-                <p>如果您没有请求此验证码，请忽略此邮件。</p>
+                <p>如果您沒有請求此驗證碼，請忽略此郵件。</p>
                 <p>If you did not request this code, please ignore this email.</p>
             </div>
         </div>
         <div class="footer">
-            <p>此邮件由系统自动发送，请勿回复。/ This is an automated message, please do not reply.</p>
+            <p>此郵件由系統自動傳送，請勿回覆。/ This is an automated message, please do not reply.</p>
         </div>
     </div>
 </body>

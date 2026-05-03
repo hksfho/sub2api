@@ -1033,7 +1033,7 @@ func (s *AntigravityGatewayService) TestConnection(ctx context.Context, account 
 	}
 	accessToken, err := s.tokenProvider.GetAccessToken(ctx, account)
 	if err != nil {
-		return nil, fmt.Errorf("获取 access_token 失败: %w", err)
+		return nil, fmt.Errorf("獲取 access_token 失敗: %w", err)
 	}
 
 	// 获取 project_id（部分账户类型可能没有）
@@ -1053,7 +1053,7 @@ func (s *AntigravityGatewayService) TestConnection(ctx context.Context, account 
 		requestBody, err = s.buildClaudeTestRequest(projectID, mappedModel)
 	}
 	if err != nil {
-		return nil, fmt.Errorf("构建请求失败: %w", err)
+		return nil, fmt.Errorf("構建請求失敗: %w", err)
 	}
 
 	// 代理 URL
@@ -1085,7 +1085,7 @@ func (s *AntigravityGatewayService) TestConnection(ctx context.Context, account 
 		// AccountSwitchError → 测试时不切换账号，返回友好提示
 		var switchErr *AntigravityAccountSwitchError
 		if errors.As(err, &switchErr) {
-			return nil, fmt.Errorf("该账号模型 %s 当前限流中，请稍后重试", switchErr.RateLimitedModel)
+			return nil, fmt.Errorf("該賬號模型 %s 當前限流中，請稍後重試", switchErr.RateLimitedModel)
 		}
 		return nil, err
 	}
@@ -1097,7 +1097,7 @@ func (s *AntigravityGatewayService) TestConnection(ctx context.Context, account 
 
 	respBody, err := io.ReadAll(io.LimitReader(result.resp.Body, 2<<20))
 	if err != nil {
-		return nil, fmt.Errorf("读取响应失败: %w", err)
+		return nil, fmt.Errorf("讀取響應失敗: %w", err)
 	}
 
 	if result.resp.StatusCode >= 400 {
@@ -1246,7 +1246,7 @@ func extractTextFromSSEResponse(respBody []byte) string {
 func injectIdentityPatchToGeminiRequest(body []byte) ([]byte, error) {
 	var request map[string]any
 	if err := json.Unmarshal(body, &request); err != nil {
-		return nil, fmt.Errorf("解析 Gemini 请求失败: %w", err)
+		return nil, fmt.Errorf("解析 Gemini 請求失敗: %w", err)
 	}
 
 	// 检查现有 systemInstruction 是否已包含身份提示词
@@ -1292,7 +1292,7 @@ func injectIdentityPatchToGeminiRequest(body []byte) ([]byte, error) {
 func (s *AntigravityGatewayService) wrapV1InternalRequest(projectID, model string, originalBody []byte) ([]byte, error) {
 	var request any
 	if err := json.Unmarshal(originalBody, &request); err != nil {
-		return nil, fmt.Errorf("解析请求体失败: %w", err)
+		return nil, fmt.Errorf("解析請求體失敗: %w", err)
 	}
 
 	wrapped := map[string]any{

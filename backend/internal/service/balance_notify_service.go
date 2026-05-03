@@ -27,9 +27,9 @@ const (
 
 // quotaDimLabels maps dimension names to display labels.
 var quotaDimLabels = map[string]string{
-	quotaDimDaily:  "日限额 / Daily",
-	quotaDimWeekly: "周限额 / Weekly",
-	quotaDimTotal:  "总限额 / Total",
+	quotaDimDaily:  "日限額 / Daily",
+	quotaDimWeekly: "周限額 / Weekly",
+	quotaDimTotal:  "總限額 / Total",
 }
 
 // AccountQuotaReader provides read access to account quota data.
@@ -347,7 +347,7 @@ func (s *BalanceNotifyService) sendBalanceLowEmails(recipients []string, userNam
 	if displayName == "" {
 		displayName = userEmail
 	}
-	subject := fmt.Sprintf("[%s] 余额不足提醒 / Balance Low Alert", sanitizeEmailHeader(siteName))
+	subject := fmt.Sprintf("[%s] 餘額不足提醒 / Balance Low Alert", sanitizeEmailHeader(siteName))
 	body := s.buildBalanceLowEmailBody(html.EscapeString(displayName), balance, threshold, html.EscapeString(siteName), rechargeURL)
 	s.sendEmails(recipients, subject, body, "user_email", userEmail, "balance", balance)
 }
@@ -369,7 +369,7 @@ func (s *BalanceNotifyService) sendQuotaAlertEmails(adminEmails []string, accoun
 		remaining = 0
 	}
 
-	subject := fmt.Sprintf("[%s] 账号限额告警 / Account Quota Alert - %s", sanitizeEmailHeader(siteName), sanitizeEmailHeader(accountName))
+	subject := fmt.Sprintf("[%s] 賬號限額告警 / Account Quota Alert - %s", sanitizeEmailHeader(siteName), sanitizeEmailHeader(accountName))
 	body := s.buildQuotaAlertEmailBody(accountID, html.EscapeString(accountName), html.EscapeString(platform), html.EscapeString(dimLabel), used, dim.limit, remaining, thresholdDisplay, html.EscapeString(siteName))
 	s.sendEmails(adminEmails, subject, body, "account", accountName, "dimension", dim.name)
 }
@@ -402,18 +402,18 @@ const balanceLowEmailTemplate = `<!DOCTYPE html>
     <div class="container">
         <div class="header"><h1>%s</h1></div>
         <div class="content">
-            <p style="font-size: 18px; color: #333;">%s，您的余额不足</p>
+            <p style="font-size: 18px; color: #333;">%s，您的餘額不足</p>
             <p style="color: #666;">Dear %s, your balance is running low</p>
             <div class="balance">$%.2f</div>
             <div class="info">
-                <p>您的账户余额已低于提醒阈值 <strong>$%.2f</strong>。</p>
+                <p>您的賬戶餘額已低於提醒閾值 <strong>$%.2f</strong>。</p>
                 <p>Your account balance has fallen below the alert threshold of <strong>$%.2f</strong>.</p>
-                <p>请及时充值以免服务中断。</p>
+                <p>請及時充值以免服務中斷。</p>
                 <p>Please top up to avoid service interruption.</p>
             </div>
             %s
         </div>
-        <div class="footer"><p>此邮件由系统自动发送，请勿回复。</p></div>
+        <div class="footer"><p>此郵件由系統自動傳送，請勿回覆。</p></div>
     </div>
 </body>
 </html>`
@@ -441,21 +441,21 @@ const quotaAlertEmailTemplate = `<!DOCTYPE html>
     <div class="container">
         <div class="header"><h1>%s</h1></div>
         <div class="content">
-            <p style="font-size: 18px; color: #333; text-align: center;">账号限额告警 / Account Quota Alert</p>
-            <div class="metric"><span class="metric-label">账号 ID / Account ID</span><span class="metric-value">#%d</span></div>
-            <div class="metric"><span class="metric-label">账号 / Account</span><span class="metric-value">%s</span></div>
-            <div class="metric"><span class="metric-label">平台 / Platform</span><span class="metric-value">%s</span></div>
-            <div class="metric"><span class="metric-label">维度 / Dimension</span><span class="metric-value">%s</span></div>
+            <p style="font-size: 18px; color: #333; text-align: center;">賬號限額告警 / Account Quota Alert</p>
+            <div class="metric"><span class="metric-label">賬號 ID / Account ID</span><span class="metric-value">#%d</span></div>
+            <div class="metric"><span class="metric-label">賬號 / Account</span><span class="metric-value">%s</span></div>
+            <div class="metric"><span class="metric-label">平臺 / Platform</span><span class="metric-value">%s</span></div>
+            <div class="metric"><span class="metric-label">維度 / Dimension</span><span class="metric-value">%s</span></div>
             <div class="metric"><span class="metric-label">已使用 / Used</span><span class="metric-value">$%.2f</span></div>
-            <div class="metric"><span class="metric-label">限额 / Limit</span><span class="metric-value">%s</span></div>
-            <div class="metric"><span class="metric-label">剩余额度 / Remaining</span><span class="metric-value">$%.2f</span></div>
-            <div class="metric"><span class="metric-label">提醒阈值 / Alert Threshold</span><span class="metric-value">%s</span></div>
+            <div class="metric"><span class="metric-label">限額 / Limit</span><span class="metric-value">%s</span></div>
+            <div class="metric"><span class="metric-label">剩餘額度 / Remaining</span><span class="metric-value">$%.2f</span></div>
+            <div class="metric"><span class="metric-label">提醒閾值 / Alert Threshold</span><span class="metric-value">%s</span></div>
             <div class="info">
-                <p>账号剩余额度已低于提醒阈值，请及时关注。</p>
+                <p>賬號剩餘額度已低於提醒閾值，請及時關注。</p>
                 <p>Account remaining quota has fallen below the alert threshold.</p>
             </div>
         </div>
-        <div class="footer"><p>此邮件由系统自动发送，请勿回复。</p></div>
+        <div class="footer"><p>此郵件由系統自動傳送，請勿回覆。</p></div>
     </div>
 </body>
 </html>`
@@ -473,7 +473,7 @@ func (s *BalanceNotifyService) buildBalanceLowEmailBody(userName string, balance
 func (s *BalanceNotifyService) buildQuotaAlertEmailBody(accountID int64, accountName, platform, dimLabel string, used, limit, remaining float64, thresholdDisplay, siteName string) string {
 	limitStr := fmt.Sprintf("$%.2f", limit)
 	if limit <= 0 {
-		limitStr = "无限制 / Unlimited"
+		limitStr = "無限制 / Unlimited"
 	}
 	return fmt.Sprintf(quotaAlertEmailTemplate, siteName, accountID, accountName, platform, dimLabel, used, limitStr, remaining, thresholdDisplay)
 }

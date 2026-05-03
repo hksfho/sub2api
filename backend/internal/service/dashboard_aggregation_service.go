@@ -19,10 +19,10 @@ const (
 
 var (
 	// ErrDashboardBackfillDisabled 当配置禁用回填时返回。
-	ErrDashboardBackfillDisabled = errors.New("仪表盘聚合回填已禁用")
+	ErrDashboardBackfillDisabled = errors.New("儀表盤聚合回填已停用")
 	// ErrDashboardBackfillTooLarge 当回填跨度超过限制时返回。
-	ErrDashboardBackfillTooLarge   = errors.New("回填时间跨度过大")
-	errDashboardAggregationRunning = errors.New("聚合作业正在运行")
+	ErrDashboardBackfillTooLarge   = errors.New("回填時間跨度過大")
+	errDashboardAggregationRunning = errors.New("聚合作業正在執行")
 )
 
 // DashboardAggregationRepository 定义仪表盘预聚合仓储接口。
@@ -92,14 +92,14 @@ func (s *DashboardAggregationService) Start() {
 // TriggerBackfill 触发回填（异步）。
 func (s *DashboardAggregationService) TriggerBackfill(start, end time.Time) error {
 	if s == nil || s.repo == nil {
-		return errors.New("聚合服务未初始化")
+		return errors.New("聚合服務未初始化")
 	}
 	if !s.cfg.BackfillEnabled {
 		logger.LegacyPrintf("service.dashboard_aggregation", "[DashboardAggregation] 回填被拒绝: backfill_enabled=false")
 		return ErrDashboardBackfillDisabled
 	}
 	if !end.After(start) {
-		return errors.New("回填时间范围无效")
+		return errors.New("回填時間範圍無效")
 	}
 	if s.cfg.BackfillMaxDays > 0 {
 		maxRange := time.Duration(s.cfg.BackfillMaxDays) * 24 * time.Hour
@@ -124,13 +124,13 @@ func (s *DashboardAggregationService) TriggerBackfill(start, end time.Time) erro
 // - 不更新 watermark（避免影响正常增量聚合游标）
 func (s *DashboardAggregationService) TriggerRecomputeRange(start, end time.Time) error {
 	if s == nil || s.repo == nil {
-		return errors.New("聚合服务未初始化")
+		return errors.New("聚合服務未初始化")
 	}
 	if !s.cfg.Enabled {
-		return errors.New("聚合服务已禁用")
+		return errors.New("聚合服務已停用")
 	}
 	if !end.After(start) {
-		return errors.New("重新计算时间范围无效")
+		return errors.New("重新計算時間範圍無效")
 	}
 
 	go func() {
@@ -246,7 +246,7 @@ func (s *DashboardAggregationService) backfillRange(ctx context.Context, start, 
 	startUTC := start.UTC()
 	endUTC := end.UTC()
 	if !endUTC.After(startUTC) {
-		return errors.New("回填时间范围无效")
+		return errors.New("回填時間範圍無效")
 	}
 
 	cursor := truncateToDayUTC(startUTC)

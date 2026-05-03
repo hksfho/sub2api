@@ -2741,7 +2741,7 @@ func (h *SettingHandler) TestWebSearchEmulation(c *gin.Context) {
 		return
 	}
 	if strings.TrimSpace(req.Query) == "" {
-		req.Query = "搜索今年世界大事件"
+		req.Query = "搜尋今年世界大事件"
 	}
 
 	result, err := service.TestWebSearch(c.Request.Context(), req.Query)
